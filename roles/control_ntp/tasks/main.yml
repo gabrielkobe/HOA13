@@ -1,0 +1,11 @@
+
+  -  name: Install NTP in Ubuntu
+     apt:
+       name: chrony
+       state: present
+
+  -  name: Enable and Start NTP in Ubuntu
+     systemd:
+       name: chrony
+       state: restarted
+       enabled: true

@@ -1,0 +1,19 @@
+
+  -  name: Installation of Memcached in Ubuntu
+     apt:
+       name:
+         -  memcached
+         -  python3-memcache
+       state: present
+
+  -  name: Creation of Configuration of Memcached in Ubuntu
+     template:
+       src: roles/control_memcached/templates/memcached.conf.j2
+       dest: /etc/memcached.conf
+       mode: 0644
+
+  -  name: Enable and Start Memcached in Ubuntu
+     systemd:
+       name: memcached
+       state: restarted
+       enabled: true

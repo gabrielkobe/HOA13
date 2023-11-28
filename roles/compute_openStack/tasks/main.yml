@@ -1,0 +1,16 @@
+-  name: Installation of OpenStack in CentOS
+   yum:
+     name: centos-release-openstack-train
+     state: present
+
+-  name: Upgrade Packages in CentOS
+   yum:
+     name: "*"
+     state: latest
+
+-  name: Installation of OpenStack in CentOS
+   yum:
+     name:
+       -  python-openstackclient
+       -  openstack-selinux
+     state: present

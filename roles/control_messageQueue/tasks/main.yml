@@ -1,0 +1,20 @@
+
+  -  name: Installation of Message Queue in Ubuntu
+     apt:
+       name: rabbitmq-server
+       state: present
+
+  -  name: Remove OpenStack as User for Message Queue in Ubuntu
+     command: "rabbitmqctl delete_user openstack"
+     ignore_errors: yes
+     changed_when: false
+
+  -  name: Add OpenStack as User for Message Queue in Ubuntu
+     command: "rabbitmqctl add_user openstack RABBIT_PASS"
+     ignore_errors: yes
+     changed_when: false
+
+  -  name: Modify Permissions for Openstack for Message Queue in Ubuntu
+     command: "rabbitmqctl set_permissions openstack '.*' '.*' '.*'"
+     ignore_errors: yes
+     changed_when: false

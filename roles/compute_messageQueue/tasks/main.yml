@@ -1,0 +1,25 @@
+-  name: Installation of Message Queue CentOS
+   yum:
+     name: rabbitmq-server
+     state: present
+
+-  name: Remove OpenStack as User for Message Queue 
+   command: "rabbitmqctl delete_user openstack"
+   ignore_errors: yes
+   changed_when: false
+
+-  name: Add OpenStack as User for MessageQueue
+   command: "rabbitmqctl add_user openstack RABBIT_PASS"
+   ignore_errors: yes
+   changed_when: false
+
+-  name: Modify Permissions for Message Queue
+   command: "rabbitmqctl set_permissions openstack '.*' '.*' '.*'"
+   ignore_errors: yes
+   changed_when: false
+
+-  name: Enable and Start Message Queue in CentOS
+   systemd:
+     name: rabbitmq-server.service
+     state: restarted
+     enabled: true

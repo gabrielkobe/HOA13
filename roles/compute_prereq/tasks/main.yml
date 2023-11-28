@@ -1,0 +1,21 @@
+
+  -  name: Adding the EPEL Repository to CentOS
+     yum:
+       name:
+         -  epel-release
+         -  python34
+         -  python-devel
+         -  gcc
+       state: present
+
+  -  name: Enabling EPEL Repository in  CentOS
+     ini_file:
+       dest: /etc/yum.repos.d/epel.repo
+       section: epel
+       option: enabled
+       value: 1
+
+  -  name: Reload Packages 
+     yum:
+       name: "*"
+       state: latest

@@ -1,0 +1,27 @@
+
+-  name: Installation of ETCD in CentOS
+   yum:
+     name: etcd
+     state: present
+
+-  name: Configuration of ETCD
+   blockinfile:
+     path:  /etc/etcd/etcd.conf
+     block: |
+         
+         ETCD_DATA_DIR="/var/lib/etcd/default.etcd"
+         ETCD_LISTEN_PEER_URLS="http://{{ ansible_default_ipv4.address }}:2380"
+         ETCD_LISTEN_CLIENT_URLS="http://{{ ansible_default_ipv4.address }}:2379"
+         ETCD_NAME="controller"
+        
+         ETCD_INITIAL_ADVERTISE_PEER_URLS="http://{{ ansible_default_ipv4.address }}:2380"
+         ETCD_ADVERTISE_CLIENT_URLS="http://{{ ansible_default_ipv4.address }}:2379"
+         ETCD_INITIAL_CLUSTER="controller=http://{{ ansible_default_ipv4.address }}:2380"
+         ETCD_INITIAL_CLUSTER_TOKEN="etcd-cluster-01"
+         ETCD_INITIAL_CLUSTER_STATE="new"
+
+-  name: Enable and Start ETCD in CentOS
+   systemd:
+     name: etcd
+     state: started
+     enabled: true

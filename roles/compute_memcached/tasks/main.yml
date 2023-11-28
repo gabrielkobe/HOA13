@@ -1,0 +1,11 @@
+-  name: Installation of Memcached in CentOS
+   yum:
+     name:
+       - memcached
+       - python-memcached
+
+-  name: Enable and Start Memcached in CentOS
+   systemd:
+     name: memcached.service
+     state: restarted
+     enabled: true

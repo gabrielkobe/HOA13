@@ -1,0 +1,5 @@
+
+  -  name: Installation of OpenStack Client in Ubuntu
+     apt:
+       name: python3-openstackclient
+       state: present

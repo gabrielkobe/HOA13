@@ -1,0 +1,10 @@
+-  name: Installation of NTP in CentOS
+   yum:
+     name: chrony
+     state: present
+
+-  name: Enable and Start NTP in CentOS
+   systemd:
+     name: chronyd.service
+     state: restarted
+     enabled: true

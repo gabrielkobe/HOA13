@@ -1,0 +1,40 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  -  name: Install Updates (Ubuntu)
+     apt:
+       upgrade: dist
+       update_cache: yes
+     when: ansible_distribution == "Ubuntu"
+
+  - name: install updates (CentOS)
+    tags: always   
+    dnf:
+      state: absent
+      autoremove: yes
+    when: ansible_distribution == "CentOS"
+
+-  hosts: control
+   become: true
+   roles:
+     -  control_ntp
+     -  control_openStack    
+     -  control_sql
+     -  control_messageQueue
+     -  control_memcached
+     -  control_etcd
+
+-  hosts: compute
+   become: true
+   roles:
+     -  compute_prereq       
+     -  compute_ntp
+     -  compute_openStack   
+     -  compute_sql
+     -  compute_messageQueue
+     -  compute_memcached
+     -  compute_etcd
+
